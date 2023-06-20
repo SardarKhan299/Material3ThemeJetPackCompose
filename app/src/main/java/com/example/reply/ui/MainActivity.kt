@@ -23,14 +23,21 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.reply.data.LocalEmailsDataProvider
 import com.example.reply.ui.theme.AppTheme
+import java.lang.reflect.Modifier
 
 
 class MainActivity : ComponentActivity() {
@@ -67,6 +74,57 @@ fun ReplyAppPreview() {
                 emails = LocalEmailsDataProvider.allEmails
             )
         )
+    }
+}
+
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "DefaultPreviewLight"
+)
+@Composable
+fun ChatMessagePreview() {
+    AppTheme {
+        Column (){
+            var showMore by rememberSaveable { mutableStateOf(false) }
+            Text(
+                text = "My Text Chat App",
+                style = MaterialTheme.typography.bodyLarge
+                    .copy(color = MaterialTheme.colorScheme.primary),
+            )
+            Button(onClick = { /*TODO*/ }) {
+                Text(text = "Send")
+            }
+
+            Text(
+                text = "My Text Chat App dsnlkdsnsa lkdsanldskndas" +
+                        "dsalkdsaksa" +
+                        " dsaksalksdlkdsa" +
+                        "dsak dsalkndskdsa" +
+                        " dsakdsalkdsalkdsa" +
+                        " dsakdsalkdsa'lsakdsa" +
+                        " mdsa ldsa'dsa'lmdsa" +
+                        " dsalk sadlk dsalkdsa " +
+                        " salmdsa;ldsam;dsalmdsa" +
+                        " dsa;lmdsal;dsa",
+                style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
+                maxLines = 5,
+                overflow = TextOverflow.Ellipsis,
+                onTextLayout = {
+                    if(it.hasVisualOverflow){
+                        // show Button...//
+                        showMore = true
+                    }
+                }
+
+            )
+
+            if(showMore){
+                Button(onClick = { /*TODO*/ }) {
+                    Text(text = "More")
+                }
+            }
+
+        }
     }
 }
 
