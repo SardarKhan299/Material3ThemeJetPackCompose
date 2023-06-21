@@ -23,6 +23,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -84,7 +88,7 @@ fun ReplyAppPreview() {
 @Composable
 fun ChatMessagePreview() {
     AppTheme {
-        Column (){
+        Column{
             var showMore by rememberSaveable { mutableStateOf(false) }
             Text(
                 text = "My Text Chat App",
@@ -105,21 +109,30 @@ fun ChatMessagePreview() {
                         " mdsa ldsa'dsa'lmdsa" +
                         " dsalk sadlk dsalkdsa " +
                         " salmdsa;ldsam;dsalmdsa" +
+                        ";lkdsa;ldsands"+
                         " dsa;lmdsal;dsa",
+                modifier = androidx.compose.ui.Modifier.animateContentSize(animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioLowBouncy,
+                    stiffness = Spring.StiffnessLow
+
+                ))
+                    .clickable {
+                        showMore = !showMore
+                },
                 style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
-                maxLines = 5,
+                maxLines = if(!showMore) 2 else 8,
                 overflow = TextOverflow.Ellipsis,
-                onTextLayout = {
-                    if(it.hasVisualOverflow){
-                        // show Button...//
-                        showMore = true
-                    }
-                }
+//                onTextLayout = {
+//                    if(it.hasVisualOverflow){
+//                        // show Button...//
+//                        showMore = true
+//                    }
+//                }
 
             )
 
             if(showMore){
-                Button(onClick = { /*TODO*/ }) {
+                Button(onClick = { showMore = !showMore}) {
                     Text(text = "More")
                 }
             }
