@@ -40,6 +40,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -161,6 +162,25 @@ fun ComposeDrawingCanvas() {
                 center = Offset(200.dp.toPx(),100.dp.toPx()),
                 radius = 60.dp.toPx()
             )
+        })
+    }
+}
+
+
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "DefaultPreviewLight"
+)
+@Composable
+fun ComposeDrawingCanvasScale() {
+    AppTheme {
+        Canvas(modifier = androidx.compose.ui.Modifier.fillMaxSize(), onDraw ={
+            scale(scaleX = 5f, scaleY = 8f) {
+                drawCircle(
+                    Color.Blue,
+                    radius = 40.dp.toPx()
+                )
+            }
         })
     }
 }
