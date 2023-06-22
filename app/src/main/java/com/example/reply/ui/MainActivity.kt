@@ -26,8 +26,10 @@ import androidx.activity.viewModels
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -36,6 +38,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -111,14 +115,17 @@ fun ChatMessagePreview() {
                         " salmdsa;ldsam;dsalmdsa" +
                         ";lkdsa;ldsands"+
                         " dsa;lmdsal;dsa",
-                modifier = androidx.compose.ui.Modifier.animateContentSize(animationSpec = spring(
-                    dampingRatio = Spring.DampingRatioLowBouncy,
-                    stiffness = Spring.StiffnessLow
+                modifier = androidx.compose.ui.Modifier
+                    .animateContentSize(
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioLowBouncy,
+                            stiffness = Spring.StiffnessLow
 
-                ))
+                        )
+                    )
                     .clickable {
                         showMore = !showMore
-                },
+                    },
                 style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
                 maxLines = if(!showMore) 2 else 8,
                 overflow = TextOverflow.Ellipsis,
@@ -131,7 +138,7 @@ fun ChatMessagePreview() {
 
             )
 
-            if(showMore){
+            if(!showMore){
                 Button(onClick = { showMore = !showMore}) {
                     Text(text = "More")
                 }
@@ -140,4 +147,22 @@ fun ChatMessagePreview() {
         }
     }
 }
+
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "DefaultPreviewLight"
+)
+@Composable
+fun ComposeDrawingCanvas() {
+    AppTheme {
+        Canvas(modifier = androidx.compose.ui.Modifier.fillMaxSize(), onDraw ={
+            drawCircle(
+                Color.Magenta,
+                center = Offset(200.dp.toPx(),100.dp.toPx()),
+                radius = 60.dp.toPx()
+            )
+        })
+    }
+}
+
 
