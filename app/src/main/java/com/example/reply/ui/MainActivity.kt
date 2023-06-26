@@ -38,7 +38,9 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.res.colorResource
@@ -46,10 +48,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.reply.data.LocalEmailsDataProvider
-import com.example.reply.ui.theme.AppTheme
-import com.example.reply.ui.theme.md_theme_dark_onTertiaryContainer
-import com.example.reply.ui.theme.md_theme_light_error
-import com.example.reply.ui.theme.md_theme_light_outlineVariant
+import com.example.reply.ui.theme.*
 import java.lang.reflect.Modifier
 
 
@@ -203,7 +202,8 @@ fun ComposeDrawingCanvasGraph() {
                 .drawWithCache {
                     //val path = generatePath(graphData,size)
                     onDrawBehind {
-
+                        //drawPath(path,Color.Green,
+                        //style = Stroke(2.dp.toPx()))
                     }
                 }){
 
@@ -216,7 +216,7 @@ fun ComposeDrawingCanvasGraph() {
                 val verticalSize = size.width/(verticalLines+1)
                 repeat(verticalLines){ i->
                     val startX = verticalSize * (i+1)
-                    drawLine(md_theme_dark_onTertiaryContainer,
+                    drawLine(md_theme_dark_primary,
                     start = Offset(startX,0f),
                         end = Offset(startX,size.height),
                         strokeWidth = barWidthPx
@@ -234,9 +234,20 @@ fun ComposeDrawingCanvasGraph() {
                         strokeWidth = barWidthPx
                     )
                 }
+
             }
         }
     }
 }
+
+//fun generatePath(data:List<Balance>, size: Size): Path {
+//    val path = Path()
+//
+//    data.forEachIndexed { i,balance ->
+//
+//        path.lineTo(x,y)
+//    }
+//    return path
+//}
 
 
